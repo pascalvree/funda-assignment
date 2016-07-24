@@ -4,9 +4,9 @@ using StructureMap.Graph;
 
 namespace ConsoleApplication1.DependencyResolution
 {
-    public class ConsoleRegistry : Registry
+    public class DefaultRegistry : Registry
     {
-        public ConsoleRegistry()
+        public DefaultRegistry()
         {
             this.Scan(scan =>
             {

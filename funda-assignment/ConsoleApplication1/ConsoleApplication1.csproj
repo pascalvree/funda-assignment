@@ -56,10 +56,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DependencyResolution\ConsoleRegistry.cs" />
+    <Compile Include="DependencyResolution\DefaultRegistry.cs" />
+    <Compile Include="Implementations\MakelaarDtoBuilder.cs" />
+    <Compile Include="Interfaces\IMakelaarDtoBuilder.cs" />
+    <Compile Include="Models\MakelaarDto.cs" />
+    <Compile Include="Implementations\MakelaarRepository.cs" />
     <Compile Include="Implementations\Application.cs" />
-    <Compile Include="Implementations\Writer.cs" />
-    <Compile Include="Interfaces\IWriter.cs" />
+    <Compile Include="Interfaces\IMakelaarRepository.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

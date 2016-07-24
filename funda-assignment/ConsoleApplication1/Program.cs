@@ -9,7 +9,7 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-            var container = Container.For<ConsoleRegistry>();
+            var container = Container.For<DefaultRegistry>();
             var app = container.GetInstance<Application>();
             app.Run();
         }
