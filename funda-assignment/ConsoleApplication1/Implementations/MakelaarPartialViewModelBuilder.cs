@@ -7,15 +7,15 @@ using log4net;
 
 namespace ConsoleApplication1.Implementations
 {
-    public class MakelaarDtoBuilder : IMakelaarDtoBuilder
+    public class MakelaarPartialViewModelBuilder : IMakelaarPartialViewModelBuilder
     {
-        private readonly ILog logger = LogManager.GetLogger(typeof(MakelaarDtoBuilder));
+        private readonly ILog logger = LogManager.GetLogger(typeof(MakelaarPartialViewModelBuilder));
 
-        public MakelaarDto Create(string id, string naam, int totaalAantalObjecten)
+        public MakelaarPartialViewModel Create(int positie, string naam, int totaalAantalObjecten)
         {
-            if (string.IsNullOrEmpty(id))
+            if (positie <= 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(id));
+                throw new ArgumentOutOfRangeException(nameof(positie));
             }
 
             if (string.IsNullOrEmpty(naam))
@@ -28,12 +28,12 @@ namespace ConsoleApplication1.Implementations
                 throw new ArgumentOutOfRangeException(nameof(totaalAantalObjecten));
             }
 
-            this.logger.Info($"We maken een makelaar aan met id: {id}, naam: {naam} en {totaalAantalObjecten} objecten");
+            this.logger.Info($"We maken een makelaar aan met positie: {positie}, naam: {naam} en {totaalAantalObjecten} objecten");
 
-            return new MakelaarDto()
+            return new MakelaarPartialViewModel()
             {
-                Id = id,
                 Naam = naam,
+                Positie = positie,
                 TotaalAantalObjecten = totaalAantalObjecten
             };
         }

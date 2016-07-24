@@ -8,63 +8,63 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace ConsoleApplication1.Tests.Implementations
 {
     [TestClass]
-    public class MakelaarDtoBuilderTests : BaseTest
+    public class MakelaarPartialViewModelBuilderTests : BaseTest
     {
-        private readonly IMakelaarDtoBuilder builder = new MakelaarDtoBuilder();
+        private readonly IMakelaarPartialViewModelBuilder builder = new MakelaarPartialViewModelBuilder();
 
         [TestMethod]
         public void DependencyInjectionTest()
         {
-            var result = this.DiContainer.GetInstance<IMakelaarDtoBuilder>();
+            var result = this.DiContainer.GetInstance<IMakelaarPartialViewModelBuilder>();
 
-            Assert.AreEqual(typeof(MakelaarDtoBuilder), result.GetType());
+            Assert.AreEqual(typeof(MakelaarPartialViewModelBuilder), result.GetType());
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void ArgumentOutOfRangeExceptionWhenCreatedWithNullAsIdArgumentTest()
+        public void ArgumentOutOfRangeExceptionWhenCreatedWith0AsPositieArgumentTest()
         {
-            this.builder.Create(null, "naam", 0);
+            this.builder.Create(0, "naam", 0);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void ArgumentOutOfRangeExceptionWhenCreatedWithNullAsNaamArgumentTest()
         {
-            this.builder.Create("id", null, 0);
+            this.builder.Create(1, null, 0);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void ArgumentOutOfRangeExceptionWhenCreatedWithEmptyStringAsIdArgumentTest()
+        public void ArgumentOutOfRangeExceptionWhenCreatedWithNegativeNumbergAsPositieArgumentTest()
         {
-            this.builder.Create(string.Empty, "naam", 0);
+            this.builder.Create(-1, "naam", 0);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void ArgumentOutOfRangeExceptionWhenCreatedWithEmptyStringAsNaamArgumentTest()
         {
-            this.builder.Create("id", string.Empty, 0);
+            this.builder.Create(1, string.Empty, 0);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void ArgumentOutOfRangeExceptionWhenCreatedWithNegativeNumberAsTotaalAantalObjectenArgumentTest()
         {
-            this.builder.Create("id", "naam", -1);
+            this.builder.Create(1, "naam", -1);
         }
 
         [TestMethod]
         public void CreatedWithExpectedValuesForArgumentsTest()
         {
-            const string Id = "id";
+            const int Positie = 2;
             const string Naam = "naam";
             const int AantalObjecten = int.MaxValue;
 
-            var result = this.builder.Create(Id, Naam, AantalObjecten);
+            var result = this.builder.Create(Positie, Naam, AantalObjecten);
 
-            Assert.AreEqual(Id, result.Id);
+            Assert.AreEqual(Positie, result.Positie);
             Assert.AreEqual(Naam, result.Naam);
             Assert.AreEqual(AantalObjecten, result.TotaalAantalObjecten);
         }

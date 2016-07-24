@@ -59,7 +59,10 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BaseTest.cs" />
-    <Compile Include="Implementations\MakelaarDtoBuilderTests.cs" />
+    <Compile Include="Implementations\MakelaarDomainModelConverterTests.cs" />
+    <Compile Include="Implementations\MakelaarPartialViewModelBuilderTests.cs" />
+    <Compile Include="Implementations\MakelaarDomainModelBuilderTests.cs" />
+    <Compile Include="Implementations\MakelaarDomainModelIListConverterTests.cs" />
     <Compile Include="Implementations\MakelaarRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

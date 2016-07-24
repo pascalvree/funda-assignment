@@ -13,9 +13,19 @@ namespace ConsoleApplication1.Tests.Implementations
     [TestClass]
     public class MakelaarRepositoryTests : BaseTest
     {
-        private MakelaarDto CreateMakelaar(int index)
+        private MakelaarDomainModel CreateMakelaar(int index)
         {
-            return new MakelaarDto();
+            return new MakelaarDomainModel()
+            {
+                Id = index.ToString(),
+                Naam = index.ToString(),
+                TotaalAantalObjecten = index
+            };
+        }
+
+        private IEnumerable<MakelaarDomainModel> CreateMakelaars(int aantalMakelaars)
+        {
+            return Enumerable.Range(1, aantalMakelaars).Select(this.CreateMakelaar).ToList();
         }
 
         [TestMethod]
@@ -24,39 +34,39 @@ namespace ConsoleApplication1.Tests.Implementations
             var result = this.DiContainer.GetInstance<IMakelaarRepository>();
 
             Assert.AreEqual(typeof(MakelaarRepository), result.GetType());
-            Assert.IsFalse(result.Top10().Any());
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void ArgumentNullExceptionWhenCreatedWithNullArgumentTest()
+        public void ArgumentNullExceptionWhenUsingNullAsDomainModelsArgumentTest()
         {
-            var repository = new MakelaarRepository(null);
+            new MakelaarRepository().Add(null);
         }
 
         [TestMethod]
         public void GetTop10IsEmptyWhenCreatedWith0MakelaarsTest()
         {
-            var repository = new MakelaarRepository(new List<MakelaarDto>());
+            var repository = new MakelaarRepository();
+            repository.Add(new List<MakelaarDomainModel>());
+
             Assert.IsFalse(repository.Top10().Any());
         }
 
         [TestMethod]
         public void GetTop10Has1MakelaarWhenCreatedWith3MakelaarTest()
         {
-            var aantalMakelaars = 3;
-            var makelaars = Enumerable.Range(1, aantalMakelaars).Select(this.CreateMakelaar);
-            var repository = new MakelaarRepository(makelaars);
-            Assert.AreEqual(aantalMakelaars, repository.Top10().Count());
+            const int AantalMakelaars = 3;
+            var repository = new MakelaarRepository();
+            repository.Add(this.CreateMakelaars(AantalMakelaars));
+            Assert.AreEqual(AantalMakelaars, repository.Top10().Count());
         }
 
         [TestMethod]
         public void GetTop10WhenCreatedWith22MakelaarTest()
         {
-            var aantalMakelaars = 22;
-            var makelaars = Enumerable.Range(1, aantalMakelaars).Select(this.CreateMakelaar);
-            var repository = new MakelaarRepository(makelaars);
-
+            const int AantalMakelaars = 22;
+            var repository = new MakelaarRepository();
+            repository.Add(this.CreateMakelaars(AantalMakelaars));
             Assert.AreEqual(10, repository.Top10().Count());
         }
     }

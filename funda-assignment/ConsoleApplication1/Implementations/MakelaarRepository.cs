@@ -12,20 +12,20 @@ namespace ConsoleApplication1.Implementations
     public class MakelaarRepository : IMakelaarRepository
     {
         private readonly ILog logger = LogManager.GetLogger(typeof(MakelaarRepository));
-        private readonly IEnumerable<MakelaarDto> makelaars;
+        private readonly List<MakelaarDomainModel> makelaars = new List<MakelaarDomainModel>();
 
-        public MakelaarRepository(IEnumerable<MakelaarDto> makelaars)
+        public void Add(IEnumerable<MakelaarDomainModel> domainModels)
         {
-            if (makelaars == null)
+            if (domainModels == null)
             {
-                throw new ArgumentNullException(nameof(makelaars));
+                throw new ArgumentNullException(nameof(domainModels));
             }
 
-            this.makelaars = makelaars;
-            this.logger.Info(message: $"Aangemaakt met {this.makelaars.Count()} makelaars");
+            this.makelaars.AddRange(domainModels);
+            this.logger.Info(message: $"{this.makelaars.Count()} makelaars opgeslagen");
         }
 
-        public IEnumerable<MakelaarDto> Top10()
+        public IEnumerable<MakelaarDomainModel> Top10()
         {
             return this.makelaars.Take(10);
         }

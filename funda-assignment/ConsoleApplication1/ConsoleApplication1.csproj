@@ -57,9 +57,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
-    <Compile Include="Implementations\MakelaarDtoBuilder.cs" />
-    <Compile Include="Interfaces\IMakelaarDtoBuilder.cs" />
-    <Compile Include="Models\MakelaarDto.cs" />
+    <Compile Include="Implementations\MakelaarDomainModelConverter.cs" />
+    <Compile Include="Implementations\MakelaarDomainModelIListConverter.cs" />
+    <Compile Include="Implementations\MakelaarPartialViewModelBuilder.cs" />
+    <Compile Include="Implementations\MakelaarDomainModelBuilder.cs" />
+    <Compile Include="Interfaces\IMakelaarPartialViewModelBuilder.cs" />
+    <Compile Include="Interfaces\IMakelaarDomainModelBuilder.cs" />
+    <Compile Include="Interfaces\IMakelaarDomainModelIListConverter.cs" />
+    <Compile Include="Interfaces\IMakelaarDomainModelConverter.cs" />
+    <Compile Include="Models\MakelaarPartialViewModel.cs" />
+    <Compile Include="Models\MakelaarDomainModel.cs" />
     <Compile Include="Implementations\MakelaarRepository.cs" />
     <Compile Include="Implementations\Application.cs" />
     <Compile Include="Interfaces\IMakelaarRepository.cs" />
