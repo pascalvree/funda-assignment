@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
-using System.Threading.Tasks;
 
 using ConsoleApplication1.Interfaces;
 using ConsoleApplication1.Models;
@@ -13,26 +9,26 @@ using log4net;
 
 namespace ConsoleApplication1.Implementations
 {
-    internal class SimpleAsyncHttpClient
-    {
-        public static async Task<T> RunAsync<T>(Uri link, MediaTypeWithQualityHeaderValue mediaTypeHeaderValue, XmlObjectSerializer serializer) where T : class
-        {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = link;
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(mediaTypeHeaderValue);
-
-                var contents = await client.GetStreamAsync(link);
-
-                return serializer.ReadObject(contents) as T;
-            }
-        }
-    }
-
     public class FundaAanbodRestClient : IFundaAanbodRestClient
     {
         private readonly ILog logger = LogManager.GetLogger(typeof(FundaAanbodRestClient));
+
+        private readonly IFundaAanbodDtoAdapter adapter;
+
+        public FundaAanbodRestClient(IFundaAanbodDtoAdapter adapter)
+        {
+            this.adapter = adapter;
+        }
+
+        private bool HasMore(FundaAanbodDto aanbodDto)
+        {
+            if (aanbodDto == null)
+            {
+                throw new ArgumentNullException(nameof(aanbodDto));
+            }
+
+            return aanbodDto.Paging.VolgendeUrl == null;
+        }
 
         public List<FundaObject> GetAll(string link)
         {
@@ -44,20 +40,25 @@ namespace ConsoleApplication1.Implementations
                 var linkNaarAmsterdamseKoopAanbodFunda = new Uri($"{link}/p{paginanummer}");
                 this.logger.Info(linkNaarAmsterdamseKoopAanbodFunda);
 
-                var amsterdamseKoopAanbod =
-                    SimpleAsyncHttpClient.RunAsync<FundaAanbodDto>(
+                var aanbodDto =
+                    SimpleAsyncHttpClientTask.RunAsync<FundaAanbodDto>(
                         linkNaarAmsterdamseKoopAanbodFunda,
-                        new MediaTypeWithQualityHeaderValue("application/json"),
-                        new DataContractJsonSerializer(typeof(FundaAanbodDto))).Result;
+                        new MediaTypeWithQualityHeaderValue("application/json"), this.adapter).Result;
 
-                this.logger.Info(amsterdamseKoopAanbod.Paging.VolgendeUrl);
-                this.logger.Info($"{totaalAanbod.Count} / {amsterdamseKoopAanbod.TotaalAantalObjecten}");
+                if (aanbodDto == null)
+                {
+                    break;
+                }
+
+                this.logger.Info(aanbodDto?.Paging.VolgendeUrl);
+                this.logger.Info($"{totaalAanbod.Count} / {aanbodDto?.TotaalAantalObjecten}");
 
                 paginanummer++;
-                totaalAanbod.AddRange(amsterdamseKoopAanbod.Objects);
-                if (amsterdamseKoopAanbod.Paging.VolgendeUrl == null)
+                totaalAanbod.AddRange(aanbodDto.Objects);
+
+                if (this.HasMore(aanbodDto))
                 {
-                    this.logger.Info($"{totaalAanbod.Count} / {amsterdamseKoopAanbod.TotaalAantalObjecten}");
+                    this.logger.Info($"{totaalAanbod.Count} / {aanbodDto.TotaalAantalObjecten}");
 
                     break;
                 }
