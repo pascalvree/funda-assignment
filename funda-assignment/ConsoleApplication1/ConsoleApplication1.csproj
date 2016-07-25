@@ -48,6 +48,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,6 +59,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
+    <Compile Include="Implementations\FundaAanbodRestClient.cs" />
+    <Compile Include="Interfaces\IFundaAanbodRestClient.cs" />
+    <Compile Include="Interfaces\IApplication.cs" />
     <Compile Include="Implementations\MakelaarDomainModelConverter.cs" />
     <Compile Include="Implementations\MakelaarDomainModelIListConverter.cs" />
     <Compile Include="Implementations\MakelaarPartialViewModelBuilder.cs" />
@@ -65,6 +70,7 @@
     <Compile Include="Interfaces\IMakelaarDomainModelBuilder.cs" />
     <Compile Include="Interfaces\IMakelaarDomainModelIListConverter.cs" />
     <Compile Include="Interfaces\IMakelaarDomainModelConverter.cs" />
+    <Compile Include="Models\FundaAanbodDto.cs" />
     <Compile Include="Models\MakelaarPartialViewModel.cs" />
     <Compile Include="Models\MakelaarDomainModel.cs" />
     <Compile Include="Implementations\MakelaarRepository.cs" />

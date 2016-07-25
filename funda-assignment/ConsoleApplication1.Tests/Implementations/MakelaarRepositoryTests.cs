@@ -49,7 +49,7 @@ namespace ConsoleApplication1.Tests.Implementations
             var repository = new MakelaarRepository();
             repository.Add(new List<MakelaarDomainModel>());
 
-            Assert.IsFalse(repository.Top10().Any());
+            Assert.IsFalse(repository.Take(1).Any());
         }
 
         [TestMethod]
@@ -58,7 +58,7 @@ namespace ConsoleApplication1.Tests.Implementations
             const int AantalMakelaars = 3;
             var repository = new MakelaarRepository();
             repository.Add(this.CreateMakelaars(AantalMakelaars));
-            Assert.AreEqual(AantalMakelaars, repository.Top10().Count());
+            Assert.AreEqual(AantalMakelaars, repository.Take(AantalMakelaars).Count());
         }
 
         [TestMethod]
@@ -67,7 +67,18 @@ namespace ConsoleApplication1.Tests.Implementations
             const int AantalMakelaars = 22;
             var repository = new MakelaarRepository();
             repository.Add(this.CreateMakelaars(AantalMakelaars));
-            Assert.AreEqual(10, repository.Top10().Count());
+            Assert.AreEqual(10, repository.Take(10).Count());
+        }
+
+        [TestMethod]
+        public void ClearRepositoryTest()
+        {
+            const int AantalMakelaars = 3;
+            var repository = new MakelaarRepository();
+            repository.Add(this.CreateMakelaars(AantalMakelaars));
+            Assert.AreEqual(AantalMakelaars, repository.Take(AantalMakelaars).Count());
+            repository.Clear();
+            Assert.AreEqual(0, repository.Take(AantalMakelaars).Count());
         }
     }
 }

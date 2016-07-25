@@ -7,6 +7,8 @@ namespace ConsoleApplication1.Interfaces
     {
         void Add(IEnumerable<MakelaarDomainModel> makelaars);
 
-        IEnumerable<MakelaarDomainModel> Top10();
+        IEnumerable<MakelaarDomainModel> Take(int aantal);
+
+        void Clear();
     }
 }

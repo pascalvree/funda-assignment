@@ -25,9 +25,14 @@ namespace ConsoleApplication1.Implementations
             this.logger.Info(message: $"{this.makelaars.Count()} makelaars opgeslagen");
         }
 
-        public IEnumerable<MakelaarDomainModel> Top10()
+        public IEnumerable<MakelaarDomainModel> Take(int aantal)
         {
-            return this.makelaars.Take(10);
+            return this.makelaars.Take(aantal);
+        }
+
+        public void Clear()
+        {
+            this.makelaars.Clear();
         }
     }
 }
