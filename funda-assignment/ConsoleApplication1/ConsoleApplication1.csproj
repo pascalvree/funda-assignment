@@ -60,12 +60,14 @@
   <ItemGroup>
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
     <Compile Include="Implementations\FundaAanbodDtoAdapter.cs" />
+    <Compile Include="Implementations\FundaObjectDtoConverter.cs" />
+    <Compile Include="Interfaces\IFundaObjectDtoConverter.cs" />
     <Compile Include="Interfaces\IAdapter.cs" />
     <Compile Include="Interfaces\IFundaAanbodDtoAdapter.cs" />
     <Compile Include="Interfaces\ISimpleAsyncHttpClientTask.cs" />
     <Compile Include="Implementations\SimpleAsyncHttpClientTask.cs" />
-    <Compile Include="Implementations\FundaAanbodRestClient.cs" />
-    <Compile Include="Interfaces\IFundaAanbodRestClient.cs" />
+    <Compile Include="Implementations\FundaAanbodRepository.cs" />
+    <Compile Include="Interfaces\IFundaAanbodRepository.cs" />
     <Compile Include="Interfaces\IApplication.cs" />
     <Compile Include="Implementations\MakelaarDomainModelConverter.cs" />
     <Compile Include="Implementations\MakelaarDomainModelIListConverter.cs" />

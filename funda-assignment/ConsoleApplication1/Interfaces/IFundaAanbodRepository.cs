@@ -4,7 +4,7 @@ using ConsoleApplication1.Models;
 
 namespace ConsoleApplication1.Interfaces
 {
-    public interface IFundaAanbodRestClient
+    public interface IFundaAanbodRepository
     {
         List<FundaObject> GetAll(string link);
     }
