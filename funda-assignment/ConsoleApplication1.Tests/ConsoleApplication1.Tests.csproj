@@ -59,6 +59,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BaseTest.cs" />
+    <Compile Include="Implementations\FundaAanbodDtoAdapterTests.cs" />
     <Compile Include="Implementations\MakelaarDomainModelConverterTests.cs" />
     <Compile Include="Implementations\MakelaarPartialViewModelBuilderTests.cs" />
     <Compile Include="Implementations\MakelaarDomainModelBuilderTests.cs" />
@@ -74,6 +75,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <EmbeddedResource Include="TestData\funda.aanbod.valid.response.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
