@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -16,6 +17,8 @@ namespace ConsoleApplication1.Implementations
 
         public static async Task<T> RunAsync<T>(Uri link, MediaTypeWithQualityHeaderValue mediaTypeHeaderValue, IAdapter<T> adapter) where T : class
         {
+            Logger.Info(link);
+
             using (var client = new HttpClient())
             {
                 client.BaseAddress = link;
@@ -25,9 +28,16 @@ namespace ConsoleApplication1.Implementations
                 try
                 {
                     var stream = await client.GetStreamAsync(link);
-                    SimpleAsyncHttpClientTask.Logger.Info(stream);
+                    var memory = new MemoryStream();
+                    stream.CopyTo(memory);
+                    memory.Position = 0;
 
-                    return adapter.Adapt(stream) as T;
+                    var reader = new StreamReader(memory);
+
+                    SimpleAsyncHttpClientTask.Logger.Info(reader.ReadToEnd());
+                    reader.BaseStream.Position = 0;
+
+                    return adapter.Adapt(reader.BaseStream) as T;
                 }
                 catch (WebException exception)
                 {
