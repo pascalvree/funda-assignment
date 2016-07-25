@@ -1,12 +1,9 @@
-﻿using System.Collections.Generic;
-using System.IO;
-
-using ConsoleApplication1.Models;
+﻿using System.IO;
 
 namespace ConsoleApplication1.Interfaces
 {
     public interface IApplication
     {
-        void Run(IList<MakelaarDomainModel> makelaars, TextWriter writer);
+        void Run(IMakelaarRepository repository, TextWriter writer);
     }
 }

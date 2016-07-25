@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 
 using ConsoleApplication1.Interfaces;
-using ConsoleApplication1.Models;
 
 using log4net;
 
@@ -13,24 +11,19 @@ namespace ConsoleApplication1.Implementations
     {
         private readonly ILog logger = LogManager.GetLogger(typeof(Application));
 
-        private readonly IMakelaarRepository repository;
         private readonly IMakelaarDomainModelIListConverter makelaarDomainModelIListConverter;
 
-        public Application(IMakelaarDomainModelIListConverter makelaarDomainModelIListConverter, IMakelaarRepository repository)
+        public Application(IMakelaarDomainModelIListConverter makelaarDomainModelIListConverter)
         {
-            this.repository = repository;
             this.makelaarDomainModelIListConverter = makelaarDomainModelIListConverter;
         }
 
-        public void Run(IList<MakelaarDomainModel> makelaars, TextWriter writer)
+        public void Run(IMakelaarRepository repository, TextWriter writer)
         {
-            var message = $"{nameof(Application)} gestart met {makelaars.Count()} makelaars";
+            var message = $"{nameof(Application)} gestart";
             this.logger.Info(message: message);
 
-            this.repository.Clear();
-            this.repository.Add(makelaars);
-
-            var top10 = this.repository.Take(10).ToList();
+            var top10 = repository.Take(10).ToList();
             var viewdata = this.makelaarDomainModelIListConverter.ToMakelaarPartialViewModels(top10);
 
             writer.WriteLine(message);
