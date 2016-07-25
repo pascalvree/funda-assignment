@@ -59,6 +59,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
+    <Compile Include="Implementations\FundaAanbodDtoAdapter.cs" />
+    <Compile Include="Interfaces\IAdapter.cs" />
+    <Compile Include="Interfaces\IFundaAanbodDtoAdapter.cs" />
+    <Compile Include="Interfaces\ISimpleAsyncHttpClientTask.cs" />
+    <Compile Include="Implementations\SimpleAsyncHttpClientTask.cs" />
     <Compile Include="Implementations\FundaAanbodRestClient.cs" />
     <Compile Include="Interfaces\IFundaAanbodRestClient.cs" />
     <Compile Include="Interfaces\IApplication.cs" />
