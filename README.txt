@@ -1,3 +1,7 @@
+In .net framework runtime 4.6.1 een console app geschreven obv 1 solution, de code en een testcode project waarmee de onderstaande assignment kan worden opgeleverd.
+
+--
+
 Programming assignment
 
 Hi,
